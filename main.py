@@ -5,15 +5,11 @@ import os
 import time
 import matplotlib.pyplot as plt
 
-
-def main():
-    print("This is a toy test of DQN algorithm")
-
-
 if __name__ == "__main__":
     env = gym.make("Taxi-v2")
-    episodes = 10
-    dqn = DeepQNetwork(env.action_space.n, episodes=episodes)
+    # env = gym.make("FrozenLake-v0")
+    episodes = 20
+    dqn = DeepQNetwork(env.action_space.n, episodes=episodes, observation_space=env.observation_space.n)
     episode_reward_np_array = np.zeros(episodes)
     random_probability = 1
 
@@ -27,9 +23,6 @@ if __name__ == "__main__":
             # os.system("clear")
             action = dqn.choose_action(current_state)
             next_state, reward, done, info = env.step(action)
-
-            # if action == 5:
-            #     reward = 1
 
             dqn.store_experience(current_state, action, reward, next_state, done)
 
